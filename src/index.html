@@ -68,6 +68,8 @@ nav.solid{background:rgba(9,9,11,.72);backdrop-filter:blur(14px);-webkit-backdro
 .tags{margin-top:22px;font-size:15px;color:var(--sub);letter-spacing:.14em}
 .tags span{display:inline-block}
 .scrollcue{position:absolute;bottom:42px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px}
+@media (max-height:960px){.scrollcue{bottom:14px}}
+@media (max-height:820px){.scrollcue{display:none}}
 .scrollcue .m{width:24px;height:38px;border:1.5px solid var(--line2);border-radius:12px;position:relative}
 .scrollcue .m::after{content:'';position:absolute;left:50%;top:8px;width:3px;height:8px;margin-left:-1.5px;border-radius:2px;background:var(--mint);animation:wheel 1.8s infinite}
 @keyframes wheel{0%{transform:translateY(0);opacity:1}80%{transform:translateY(12px);opacity:0}100%{opacity:0}}
@@ -118,7 +120,7 @@ section.pad{padding:18vh 0}
 #featured .stick{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
 .mq{font-weight:800;letter-spacing:-.05em;font-size:clamp(110px,15vw,280px);white-space:nowrap;line-height:1}
 .mq.o{color:transparent;-webkit-text-stroke:2px #52525B}
-.mq.f{background:linear-gradient(90deg,var(--mint),var(--mint3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mq.f{width:max-content;background:linear-gradient(90deg,var(--mint),var(--mint3));-webkit-background-clip:text;background-clip:text;color:transparent}
 #featured .sub{text-align:center;margin-top:44px;letter-spacing:.35em;color:var(--body)}
 /* PROJECTS */
 .proj{position:relative;height:300vh}
@@ -643,7 +645,7 @@ function frameLoop(now){const t=now/1000;
     // experience
     const ep=progOf($('#exp'));$('#rail').style.transform=`scaleY(${ep})`;if(ep>0&&ep<1||expIdx<0)setExp(Math.min(3,Math.floor(ep*4)));else if(ep>=1)setExp(3);
     // featured marquee
-    const fp=progOf($('#featured'));$('#mq1').style.transform=`translateX(${-10-fp*40}%)`;$('#mq2').style.transform=`translateX(${-50+fp*40}%)`;
+    const fp=progOf($('#featured'));$('#mq1').style.transform=`translateX(${-10-fp*40}%)`;$('#mq2').style.transform=`translateX(${(-50+fp*40)*$('#featured .stick').clientWidth/100}px)`;
     const fr=$('#featured .stick');fr.style.opacity=1-p(fp,.85,1)*.0;
     // projects
     PX.forEach(X=>{const r=X.sec.getBoundingClientRect();if(r.bottom<-50||r.top>innerHeight+50)return;const pp=progOf(X.sec);
